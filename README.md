@@ -99,4 +99,26 @@ Email: yc2253@cornell.edu
 
 rna.pdb                    |  SWAXS profile
 :-------------------------:|:-------------------------:
-![](rna.png)               |  ![](rna.png)
+![](rna.png)               |  ![](rna_swaxs.png)
+
+
+### 2. Calculating from a pair of `.pdb` files to account for buffer subtraction: `solute.pdb` and `solvent.pdb`
+
+   Each of the `.pdb` file contains about 9000 atoms.
+
+```
+>.\\bin\\SWAXS --solute solute.pdb --solvent solvent.pdb -o test 0.0 0.01 1.5
+[ Info: --- SWAXS: Setting up parallel workers ...
+[ Info: --- SWAXS: Please wait ...
+[ Info: --- SWAXS: Computing SWAXS (J=1200) using solute: solute.pdb and solvent: solvent.pdb.
+[ Info: --- SWAXS: SWAXS program completed successfully: elapsed time = 38.712813001 seconds with 8 cores.
+[ Info: --- SWAXS: Removing parallel workers ...
+```
+
+  And the swaxs profile from `q = 0.0` to `q = 1.5` with spacing `0.01` is saved as `test.dat`.
+
+  solute.pdb                 |  solvent.pdb              |  SWAXS profile
+  :-------------------------:|:-------------------------:|:-------------------------:
+  ![](solute.png)            |  ![](solvent.png)         |  ![](solute_swaxs.png)
+
+  Note that this is just for demonstration so the solvent/ion coordinates are exactly the same (i.e. the ion/solvent shells are still shaped by the molecule). However, it's suggested to use another frame of randomized solvent for a more precise buffer subtraction.
