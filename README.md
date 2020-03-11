@@ -187,6 +187,12 @@ rabbit.binvox              |  SWAXS profile
 4. The atom-name processor might be a little bit buggy, I will try to fix some of the parsing issues.
 5. Not sure if I will maintain this or not in the future ...
 
+## References
+
+1. For the formulation and theory: Park et al. J Chem Phys. 2009 Apr 7;130(13):134114. [Link](https://doi.org/10.1063/1.3099611)
+2. For the application: Chen et al. J. Phys. Chem. B 2019, 123, 46, 9773-9785. [Link](https://doi.org/10.1021/acs.jpcb.9b07502)
+
+And many fun stuff will follow. : )
 
 ## TODO
 
