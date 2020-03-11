@@ -119,6 +119,6 @@ rna.pdb                    |  SWAXS profile
 
   solute.pdb                 |  solvent.pdb              |  SWAXS profile
   :-------------------------:|:-------------------------:|:-------------------------:
-  ![](solute.png)            |  ![](solvent.png)         |  ![](solute_swaxs.png)
+  ![](solute.png)            |  ![](solvent.png)         |  <img src="solute_swaxs.png" alt="drawing" width="800"/>
 
   Note that this is just for demonstration so the solvent/ion coordinates are exactly the same (i.e. the ion/solvent shells are still shaped by the molecule). However, it's suggested to use another frame of randomized solvent for a more precise buffer subtraction.
