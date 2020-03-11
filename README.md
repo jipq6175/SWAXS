@@ -99,7 +99,7 @@ Email: yc2253@cornell.edu
 
 rna.pdb                    |  SWAXS profile
 :-------------------------:|:-------------------------:
-![](rna.png)               |  ![](rna_swaxs.png)
+![](rna.png)               |  ![](rna_swaxs.png =800x)
 
 
 ### 2. Calculating from a pair of `.pdb` files to account for buffer subtraction: `solute.pdb` and `solvent.pdb`
