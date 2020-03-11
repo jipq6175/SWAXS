@@ -179,7 +179,7 @@ rabbit.binvox              |  SWAXS profile
   This uniform 3D voxelized shape is very similar to the `shape.mrc` case since the electron density is uniform within the rabbit. So SWAXS profile at wide-angle regime actually reveals finer periodicity from electron-denser structures.
 
 
-## Notes
+## More Notes
 
 1. The options `--pdb`, `--density`, `--binvox` and `--solute --solvent` cannot not be specified at the same time. Otherwise, error will be thrown.
 2. If high-throughput computation is required, one should bypassing the command line because it sets up parallel workers every time. To avoid that, set up your parallel workers using `SWAXS.jl`. Send request to Yen (yc2253@cornell.edu).
