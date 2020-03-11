@@ -117,8 +117,78 @@ rna.pdb                    |  SWAXS profile
 
   And the swaxs profile from `q = 0.0` to `q = 1.5` with spacing `0.01` is saved as `test.dat`.
 
-  solute.pdb                 |  solvent.pdb              |  SWAXS profile
-  :-------------------------:|:-------------------------:|:-------------------------:
-  ![](solute.png)            |  ![](solvent.png)         |  <img src="solute_swaxs.png" alt="drawing" width="800"/>
+solute.pdb                 |  solvent.pdb              |  SWAXS profile
+:-------------------------:|:-------------------------:|:-------------------------:
+![](solute.png)            |  ![](solvent.png)         |  <img src="solute_swaxs.png" alt="drawing" width="800"/>
 
-  Note that this is just for demonstration so the solvent/ion coordinates are exactly the same (i.e. the ion/solvent shells are still shaped by the molecule). However, it's suggested to use another frame of randomized solvent for a more precise buffer subtraction.
+Note that this is just for demonstration so the solvent/ion coordinates are exactly the same (i.e. the ion/solvent shells are still shaped by the molecule). However, it's suggested to use another frame of randomized solvent for a more precise buffer subtraction.
+
+
+
+### 3. Calculating from CCP4 3D electron density map `.mrc` or `.map` files: `den.mrc`
+
+  The `shape.mrc` contains 96x96x96 volumetric data and is considered to be the Excessive Density
+  Run
+
+```
+>.\\bin\\SWAXS --density shape.mrc -o test 0.0 0.01 1.5
+[ Info: --- SWAXS: Setting up parallel workers ...
+[ Info: --- SWAXS: Please wait ...
+[ Info: --- SWAXS: Computing SWAXS (J=1200) using electron density file: shape.mrc, with sden=0.335 cutoff=0.001.
+[ Info: --- SWAXS: SWAXS program completed successfully: elapsed time = 18.5273815 seconds with 8 cores.
+[ Info: --- SWAXS: Removing parallel workers ...
+```
+
+  And the swaxs profile from `q = 0.0` to `q = 1.5` with spacing `0.01` is saved as `test.dat`.
+
+shape.mrc                  |  SWAXS profile
+:-------------------------:|:-------------------------:
+![](shape.png)             |  <img src="shape_swaxs.png" alt="drawing" width="800"/>
+
+  The `shape.mrc` is just an envelope, so it doesn't have much feature in the WAXS regime.
+
+
+shape2.mrc                 |  SWAXS profile
+:-------------------------:|:-------------------------:
+![](shape2.png)            |  <img src="shape2_swaxs.png" alt="drawing" width="800"/>
+
+  The `shape2.mrc` has more features, reflected in the wide-angle regime.
+
+  Note that this is just a demonstration and in this case, it's advised to have well-defined molecular support (not yet integrated in this SWAXS version.).
+
+
+### 4. Calculating from 3D shape with dummy voxels: `rabbit.binvox`
+
+  The `rabbit.binvox` contains 51x51x51 volumetric data with a grid size of `2A` and is considered to be the 3D cat shape with Excessive Density `0.5 e/A^3`.
+
+```
+>.\\bin\\SWAXS --binvox rabbit.binvox -o test 0.0 0.01 1.5
+[ Info: --- SWAXS: Setting up parallel workers ...
+[ Info: --- SWAXS: Please wait ...
+[ Info: --- SWAXS: Computing SWAXS (J=1200) using shape file: rabbit.binvox, with voxel_density=0.5, sden=0.335.
+[ Info: --- SWAXS: SWAXS program completed successfully: elapsed time = 32.7341433 seconds with 8 cores.
+[ Info: --- SWAXS: Removing parallel workers ...
+```
+
+  And the swaxs profile from `q = 0.0` to `q = 1.5` with spacing `0.01` is saved as `test.dat`.
+
+rabbit.binvox              |  SWAXS profile
+:-------------------------:|:-------------------------:
+![](rabbit.png)            |  <img src="rabbit_swaxs.png" alt="drawing" width="800"/>
+
+  This uniform 3D voxelized shape is very similar to the `shape.mrc` case since the electron density is uniform within the rabbit. So SWAXS profile at wide-angle regime actually reveals finer periodicity from electron-denser structures.
+
+
+## Notes
+
+1. The options `--pdb`, `--density`, `--binvox` and `--solute --solvent` cannot not be specified at the same time. Otherwise, error will be thrown.
+2. If high-throughput computation is required, one should bypassing the command line because it sets up parallel workers every time. To avoid that, set up your parallel workers using `SWAXS.jl`. Send request to Yen (yc2253@cornell.edu).
+3. If your structures contain too many atoms or voxels, `GPUSWAXS` might be suitable.
+4. The atom-name processor might be a little bit buggy, I will try to fix some of the parsing issues.
+5. Not sure if I will maintain this or not in the future ...
+
+
+## TODO
+
+1. Molecular support
+2. Compatibility with the GROMACS output files
