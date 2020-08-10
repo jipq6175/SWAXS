@@ -286,6 +286,16 @@ And the swaxs profile from `q = 0.0` to `q = 1.0` with spacing `0.1` is saved as
 1. The options `--pdb`, `--density`, `--binvox`, `--solute --solvent` and `--dare` cannot not be specified at the same time. Otherwise, error will be thrown.
 2. If high-throughput computation is required, one should bypassing the command-line because it sets up parallel workers everytime. To avoid that, set up your parallel workers and call `@everywhere include("SWAXS.jl")` and `@everywhere using .SWAXS` in the julia script.
 3. The `--dare` mode is very expensive and should not be used for high-throughput computation unless on cluster.
+4. The `--npr` default option is machine-dependent. The following screenshot was taken on an 8-core PC (`default = 8`), showing the transferability of `SWAXS` across 32-bit and 64-bit Windows 10 machines.
+
+![](screen.png)
+
+5. Every time `SWAXS` is called, it creates `--npr` number of parallel `julia`s, even when only `--help` or `--version` is passed. This requires run-time ahead and might feel slow by just running `.\bin\SWAXS --help`. For checking the argument table and help, either refer to this `README.md` or `README.pdf` or try
+
+```
+.\bin\SWAXS --npr 1 --help
+```
+
 
 
 ## References
